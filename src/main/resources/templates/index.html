@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                layout:decorate="~{layout/layout}">
+
+
+<section layout:fragment="content">
+    <!-- Begin Page Content -->
+    <h1> Spring boot로 시작하는 웹</h1>
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+
+                <th:block th:if="${memberName}">
+                    <span id="user">logged in as: [[${memberName}]]</span>
+                    <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+                </th:block>
+
+                <th:block th:unless="${memberName}">
+                    <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+                    <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+                </th:block>
+
+            </div>
+        </div>
+        <br>
+        <!-- 목록 출력 영역 -->
+        <table class="table table-horizontal table-bordered">
+            <thead class="thead-strong">
+            <tr>
+                <th>게시글번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>최종수정일</th>
+            </tr>
+            </thead>
+
+            <tbody id="tbody">
+                <tr th:each="post : ${posts}">
+                    <td th:text="${post.id}"></td>
+                    <td> <a th:href="@{/posts/update/{id}(id = ${post.id})}" th:text="${post.title}"></a> </td>
+                    <td th:text="${post.author}"></td>
+                    <td th:text="${post.modifiedDate}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</section>
+
+</html>
