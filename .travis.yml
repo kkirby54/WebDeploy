@@ -33,7 +33,19 @@ deploy:
     on:
       all_branches: true
 
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: myspringboot-build
+    key: springboot-web.zip
+
+    bundle_type: zip
+    application: myspringboot-webservice
+    deployment_group: myspringboot-webservice-group
+    region: ap-northeast-2
+    wait-until-deployed: true
+
 notifications:
   email:
     recipients:
-      - "sdk926@gmail.com"
+      - sdk926@gmail.com
