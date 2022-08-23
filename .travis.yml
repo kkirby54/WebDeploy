@@ -29,7 +29,7 @@ deploy:
     skip_cleanup: true
     acl: private  # zip 파일 접근은 private
     local_dir: deploy # before_deploy에서 생성한 디렉토리
-    wait-until-deployed: true
+    wait_until_deployed: true
     on:
       all_branches: true
 
@@ -43,7 +43,7 @@ deploy:
     application: myspringboot-webservice
     deployment_group: myspringboot-webservice-group
     region: ap-northeast-2
-    wait-until-deployed: true
+    wait_until_deployed: true
 
 notifications:
   email:
