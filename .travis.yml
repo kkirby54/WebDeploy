@@ -14,6 +14,23 @@ cache:
 
 script: "./gradlew clean build"
 
+before_deploy:
+  - zip -r springboot-web *
+  - mkdir -p deploy
+  - mv springboot-web.zip deploy/springboot-web.zip
+
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: myspringboot-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private  # zip 파일 접근은 private
+    local_dir: deploy # before_deploy에서 생성한 디렉토리
+    wait-until-deployed: true
+
 notifications:
   email:
     recipients:
